@@ -1,0 +1,22 @@
+{
+  parserClass="com.gt.intellij.matlab.language.parser.MatlabParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Matlab"
+  psiImplClassSuffix="Impl"
+  psiPackage="com.gt.intellij.matlab.psi"
+  psiImplPackage="com.gt.intellij.matlab.psi.impl"
+
+  elementTypeHolderClass="com.gt.intellij.matlab.psi.MatlabTypes"
+  elementTypeClass="com.gt.intellij.matlab.psi.MatlabElementType"
+  tokenTypeClass="com.gt.intellij.matlab.psi.MatlabTokenType"
+
+  tokens = [
+    NUMBER="regexp:[0-9]+(\.[0-9]+)?([eE][-+]?[0-9]+)?"
+  ]
+}
+
+matlabFile ::= item_*
+
+private item_ ::= (NUMBER | WHITE_SPACE)
