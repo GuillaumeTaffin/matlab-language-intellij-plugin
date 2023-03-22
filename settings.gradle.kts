@@ -1,0 +1,1 @@
+rootProject.name = "matlab-language-intellij-plugin"
