@@ -32,5 +32,9 @@
                 language="Matlab"
                 extensions="m"/>
 
+        <lang.parserDefinition
+                language="Matlab"
+                implementationClass="com.gt.intellij.matlab.language.parser.MatlabParserDefinition"/>
+
     </extensions>
 </idea-plugin>

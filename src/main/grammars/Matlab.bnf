@@ -14,9 +14,31 @@
 
   tokens = [
     NUMBER="regexp:[0-9]+(\.[0-9]+)?([eE][-+]?[0-9]+)?"
+    SINGLE_LINE_COMMENT="regexp:%[^\r\n]*"
+    SHELL_STRING="regexp:\!.*"
+    STRING_QUOTED_SINGLE="regexp:'([^'\n]|'')*'"
+    STRING_QUOTED_DOUBLE='regexp:"([^"\n]|"")*"'
+    WHITE_SPACE="regexp:[\ \t\f]"
+    EOL="regexp:\R"
   ]
 }
 
 matlabFile ::= item_*
 
-private item_ ::= (NUMBER | WHITE_SPACE)
+private item_ ::= comment
+                    | white_space
+                    | standalone_expression
+
+private white_space ::= (line_space | EOL)+
+
+private line_space ::= WHITE_SPACE+
+
+comment ::= SINGLE_LINE_COMMENT
+
+private standalone_expression ::= expression (line_space | SINGLE_LINE_COMMENT)? EOL+
+
+private expression ::= string
+
+string ::= SHELL_STRING
+            | STRING_QUOTED_SINGLE
+            | STRING_QUOTED_DOUBLE
