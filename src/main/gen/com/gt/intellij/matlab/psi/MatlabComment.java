@@ -7,7 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface MatlabComment extends PsiElement {
 
-  @NotNull
+  @Nullable
+  MatlabCommentBlock getCommentBlock();
+
+  @Nullable
   PsiElement getSingleLineComment();
 
 }

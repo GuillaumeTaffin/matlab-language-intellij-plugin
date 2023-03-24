@@ -37,13 +37,56 @@ public class MatlabParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // SINGLE_LINE_COMMENT
+  //                 | comment_block
   public static boolean comment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "comment")) return false;
-    if (!nextTokenIs(b, SINGLE_LINE_COMMENT)) return false;
+    if (!nextTokenIs(b, "<comment>", COMMENT_BLOCK_BEGIN, SINGLE_LINE_COMMENT)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, COMMENT, "<comment>");
+    r = consumeToken(b, SINGLE_LINE_COMMENT);
+    if (!r) r = comment_block(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // COMMENT_BLOCK_BEGIN ((inlined_white_space | comment_block)*)? COMMENT_BLOCK_END
+  public static boolean comment_block(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "comment_block")) return false;
+    if (!nextTokenIs(b, COMMENT_BLOCK_BEGIN)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, SINGLE_LINE_COMMENT);
-    exit_section_(b, m, COMMENT, r);
+    r = consumeToken(b, COMMENT_BLOCK_BEGIN);
+    r = r && comment_block_1(b, l + 1);
+    r = r && consumeToken(b, COMMENT_BLOCK_END);
+    exit_section_(b, m, COMMENT_BLOCK, r);
+    return r;
+  }
+
+  // ((inlined_white_space | comment_block)*)?
+  private static boolean comment_block_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "comment_block_1")) return false;
+    comment_block_1_0(b, l + 1);
+    return true;
+  }
+
+  // (inlined_white_space | comment_block)*
+  private static boolean comment_block_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "comment_block_1_0")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!comment_block_1_0_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "comment_block_1_0", c)) break;
+    }
+    return true;
+  }
+
+  // inlined_white_space | comment_block
+  private static boolean comment_block_1_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "comment_block_1_0_0")) return false;
+    boolean r;
+    r = inlined_white_space(b, l + 1);
+    if (!r) r = comment_block(b, l + 1);
     return r;
   }
 
@@ -54,14 +97,40 @@ public class MatlabParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // (WHITE_SPACE | EOL)+
+  static boolean inlined_white_space(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "inlined_white_space")) return false;
+    if (!nextTokenIs(b, "", EOL, WHITE_SPACE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = inlined_white_space_0(b, l + 1);
+    while (r) {
+      int c = current_position_(b);
+      if (!inlined_white_space_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "inlined_white_space", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // WHITE_SPACE | EOL
+  private static boolean inlined_white_space_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "inlined_white_space_0")) return false;
+    boolean r;
+    r = consumeToken(b, WHITE_SPACE);
+    if (!r) r = consumeToken(b, EOL);
+    return r;
+  }
+
+  /* ********************************************************** */
   // comment
-  //                     | white_space
+  //                     | inlined_white_space
   //                     | standalone_expression
   static boolean item_(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "item_")) return false;
     boolean r;
     r = comment(b, l + 1);
-    if (!r) r = white_space(b, l + 1);
+    if (!r) r = inlined_white_space(b, l + 1);
     if (!r) r = standalone_expression(b, l + 1);
     return r;
   }
@@ -128,32 +197,6 @@ public class MatlabParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, STRING_QUOTED_SINGLE);
     if (!r) r = consumeToken(b, STRING_QUOTED_DOUBLE);
     exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // (WHITE_SPACE | EOL)+
-  static boolean white_space(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "white_space")) return false;
-    if (!nextTokenIs(b, "", EOL, WHITE_SPACE)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = white_space_0(b, l + 1);
-    while (r) {
-      int c = current_position_(b);
-      if (!white_space_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "white_space", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // WHITE_SPACE | EOL
-  private static boolean white_space_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "white_space_0")) return false;
-    boolean r;
-    r = consumeToken(b, WHITE_SPACE);
-    if (!r) r = consumeToken(b, EOL);
     return r;
   }
 

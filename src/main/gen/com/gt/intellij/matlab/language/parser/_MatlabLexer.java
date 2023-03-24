@@ -55,8 +55,9 @@ public class _MatlabLexer implements FlexLexer {
 
   /* The ZZ_CMAP_A table has 320 entries */
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\11\0\1\14\1\2\1\1\1\11\1\2\22\0\1\14\1\10\1\13\2\0\1\7\1\0\1\12\3\0\1\6\1"+
-    "\0\1\6\1\4\1\0\12\3\13\0\1\5\37\0\1\5\37\0\1\1\242\0\2\1\26\0");
+    "\11\0\1\10\1\2\1\1\1\7\1\2\22\0\1\10\1\0\1\15\2\0\1\11\1\0\1\14\3\0\1\6\1"+
+    "\0\1\6\1\4\1\0\12\3\13\0\1\5\37\0\1\5\25\0\1\12\1\0\1\13\7\0\1\1\242\0\2\1"+
+    "\26\0");
 
   /** 
    * Translates DFA states to action switch labels.
@@ -64,11 +65,12 @@ public class _MatlabLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\1\4\1\5\1\6\2\1"+
-    "\1\6\3\0\1\7\1\0\1\10\2\3\1\0";
+    "\1\0\1\1\1\2\1\3\2\4\1\5\2\1\3\0"+
+    "\1\2\1\0\2\5\1\6\1\0\1\7\1\0\1\10"+
+    "\2\3\1\0\1\2\1\0\1\11";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[19];
+    int [] result = new int[27];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -93,12 +95,13 @@ public class _MatlabLexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\15\0\32\0\47\0\64\0\101\0\116\0\133"+
-    "\0\150\0\165\0\202\0\217\0\133\0\234\0\150\0\251"+
-    "\0\266\0\303\0\303";
+    "\0\0\0\16\0\34\0\52\0\70\0\106\0\124\0\142"+
+    "\0\160\0\16\0\176\0\214\0\232\0\250\0\266\0\304"+
+    "\0\266\0\142\0\322\0\160\0\340\0\356\0\374\0\374"+
+    "\0\u010a\0\u0118\0\34";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[19];
+    int [] result = new int[27];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -121,17 +124,24 @@ public class _MatlabLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\2\2\1\3\1\4\3\2\1\5\1\6\1\7\1\10"+
-    "\1\11\1\12\17\0\1\3\6\0\1\3\6\0\1\4"+
-    "\1\13\1\14\7\0\2\5\1\0\12\5\1\6\2\0"+
-    "\6\6\1\0\3\6\2\0\1\3\6\0\1\7\2\0"+
-    "\1\12\2\15\1\0\7\15\1\16\2\15\2\17\1\0"+
-    "\10\17\1\20\1\17\11\0\1\12\2\0\1\12\3\0"+
-    "\1\21\14\0\1\22\2\0\1\23\20\0\1\15\15\0"+
-    "\1\17\4\0\1\21\1\0\1\14\12\0\1\22\11\0";
+    "\1\2\2\3\1\4\3\2\1\5\1\6\1\7\2\2"+
+    "\1\10\1\11\1\12\2\3\4\12\1\3\6\12\16\3"+
+    "\1\12\2\3\1\4\1\13\1\14\1\12\1\3\6\12"+
+    "\7\3\2\5\1\15\4\3\1\12\2\3\4\12\1\5"+
+    "\1\6\1\16\4\12\2\17\1\3\7\17\1\20\1\21"+
+    "\2\17\1\22\2\3\4\22\1\3\4\22\1\23\1\22"+
+    "\1\24\2\3\4\24\1\3\5\24\1\25\1\12\2\3"+
+    "\1\26\3\12\1\3\7\12\2\3\1\27\2\12\1\30"+
+    "\1\3\6\12\12\3\1\31\3\3\1\12\2\3\4\12"+
+    "\1\3\2\12\1\32\3\12\2\17\1\3\13\17\2\20"+
+    "\1\33\13\20\1\12\2\3\4\12\1\3\4\12\1\22"+
+    "\2\12\2\3\4\12\1\3\5\12\1\24\1\12\2\3"+
+    "\1\26\1\12\1\14\1\12\1\3\7\12\2\3\1\27"+
+    "\3\12\1\3\6\12\2\31\1\33\13\31\1\32\1\31"+
+    "\1\33\4\32\1\31\6\32";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[208];
+    int [] result = new int[294];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -169,10 +179,11 @@ public class _MatlabLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\10\1\3\0\1\1\1\0\3\1\1\0";
+    "\1\0\10\1\3\0\1\1\1\0\3\1\1\0\1\1"+
+    "\1\0\3\1\1\0\1\1\1\0\1\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[19];
+    int [] result = new int[27];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -481,42 +492,47 @@ public class _MatlabLexer implements FlexLexer {
             { return BAD_CHARACTER;
             } 
             // fall through
-          case 9: break;
+          case 10: break;
           case 2: 
-            { return EOL;
+            { return SHELL_STRING;
             } 
             // fall through
-          case 10: break;
+          case 11: break;
           case 3: 
             { return NUMBER;
             } 
             // fall through
-          case 11: break;
-          case 4: 
-            { return SINGLE_LINE_COMMENT;
-            } 
-            // fall through
           case 12: break;
-          case 5: 
-            { return SHELL_STRING;
-            } 
-            // fall through
-          case 13: break;
-          case 6: 
+          case 4: 
             { return WHITE_SPACE;
             } 
             // fall through
+          case 13: break;
+          case 5: 
+            { return SINGLE_LINE_COMMENT;
+            } 
+            // fall through
           case 14: break;
+          case 6: 
+            { return COMMENT_BLOCK_END;
+            } 
+            // fall through
+          case 15: break;
           case 7: 
             { return STRING_QUOTED_SINGLE;
             } 
             // fall through
-          case 15: break;
+          case 16: break;
           case 8: 
             { return STRING_QUOTED_DOUBLE;
             } 
             // fall through
-          case 16: break;
+          case 17: break;
+          case 9: 
+            { return COMMENT_BLOCK_BEGIN;
+            } 
+            // fall through
+          case 18: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

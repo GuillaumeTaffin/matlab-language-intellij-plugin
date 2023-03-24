@@ -11,14 +11,14 @@ import static com.gt.intellij.matlab.psi.MatlabTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.gt.intellij.matlab.psi.*;
 
-public class MatlabCommentImpl extends ASTWrapperPsiElement implements MatlabComment {
+public class MatlabCommentBlockImpl extends ASTWrapperPsiElement implements MatlabCommentBlock {
 
-  public MatlabCommentImpl(@NotNull ASTNode node) {
+  public MatlabCommentBlockImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull MatlabVisitor visitor) {
-    visitor.visitComment(this);
+    visitor.visitCommentBlock(this);
   }
 
   @Override
@@ -28,15 +28,21 @@ public class MatlabCommentImpl extends ASTWrapperPsiElement implements MatlabCom
   }
 
   @Override
-  @Nullable
-  public MatlabCommentBlock getCommentBlock() {
-    return findChildByClass(MatlabCommentBlock.class);
+  @NotNull
+  public List<MatlabCommentBlock> getCommentBlockList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, MatlabCommentBlock.class);
   }
 
   @Override
-  @Nullable
-  public PsiElement getSingleLineComment() {
-    return findChildByType(SINGLE_LINE_COMMENT);
+  @NotNull
+  public PsiElement getCommentBlockBegin() {
+    return findNotNullChildByType(COMMENT_BLOCK_BEGIN);
+  }
+
+  @Override
+  @NotNull
+  public PsiElement getCommentBlockEnd() {
+    return findNotNullChildByType(COMMENT_BLOCK_END);
   }
 
 }
