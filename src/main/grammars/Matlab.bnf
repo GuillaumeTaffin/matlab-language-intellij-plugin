@@ -14,10 +14,9 @@
 
   tokens = [
     NUMBER="regexp:[0-9]+(\.[0-9]+)?([eE][-+]?[0-9]+)?"
-    COMMENT_BLOCK_BEGIN="regexp:([ \t\f]*)(%\{)([^\r\n]*)[\r\n]"
-    COMMENT_BLOCK_END="regexp:%}"
-    SINGLE_LINE_COMMENT="regexp:%[^\r\n]*"
-    SHELL_STRING="regexp:!.*"
+    COMMENT_BLOCK="regexp:([ \t\f]*)(%\{)([^\r\n]*)[\r\n](.|\n)*%}"
+    INLINED_COMMENT="regexp:%[^\r\n]*"
+    SHELL_STRING="regexp:\!.*" // keep the leading '\' or generated flex will be wrong
     STRING_QUOTED_SINGLE="regexp:'([^'\r\n]|'')*'"
     STRING_QUOTED_DOUBLE='regexp:"([^"\r\n]|"")*"'
     WHITE_SPACE="regexp:[ \t\f]+"
@@ -33,12 +32,10 @@ private item_ ::= comment
 
 private inlined_white_space ::= (WHITE_SPACE | EOL)+
 
-comment ::= SINGLE_LINE_COMMENT
-                | comment_block
+comment ::= INLINED_COMMENT
+                | COMMENT_BLOCK
 
-comment_block ::= COMMENT_BLOCK_BEGIN ((inlined_white_space | comment_block)*)? COMMENT_BLOCK_END // EOL
-
-private standalone_expression ::= expression WHITE_SPACE? !expression SINGLE_LINE_COMMENT?
+private standalone_expression ::= expression WHITE_SPACE? !expression INLINED_COMMENT?
 
 private expression ::= string
 

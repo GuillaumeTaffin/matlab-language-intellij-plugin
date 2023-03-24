@@ -11,10 +11,6 @@ public class MatlabVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitCommentBlock(@NotNull MatlabCommentBlock o) {
-    visitPsiElement(o);
-  }
-
   public void visitString(@NotNull MatlabString o) {
     visitPsiElement(o);
   }

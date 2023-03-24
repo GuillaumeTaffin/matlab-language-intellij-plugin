@@ -26,10 +26,9 @@ EOL=\R
 WHITE_SPACE=\s+
 
 NUMBER=[0-9]+(\.[0-9]+)?([eE][-+]?[0-9]+)?
-COMMENT_BLOCK_BEGIN=([ \t\f]*)(%\{)([^\r\n]*)[\r\n]
-COMMENT_BLOCK_END=%}
-SINGLE_LINE_COMMENT=%[^\r\n]*
-SHELL_STRING=!.*
+COMMENT_BLOCK=([ \t\f]*)(%\{)([^\r\n]*)[\r\n](.|\n)*%}
+INLINED_COMMENT=%[^\r\n]*
+SHELL_STRING=\!.*
 STRING_QUOTED_SINGLE='([^'\r\n]|'')*'
 STRING_QUOTED_DOUBLE=\"([^\"\r\n]|\"\")*\"
 WHITE_SPACE=[ \t\f]+
@@ -41,9 +40,8 @@ EOL=[\r\n\f]+
 
 
   {NUMBER}                    { return NUMBER; }
-  {COMMENT_BLOCK_BEGIN}       { return COMMENT_BLOCK_BEGIN; }
-  {COMMENT_BLOCK_END}         { return COMMENT_BLOCK_END; }
-  {SINGLE_LINE_COMMENT}       { return SINGLE_LINE_COMMENT; }
+  {COMMENT_BLOCK}             { return COMMENT_BLOCK; }
+  {INLINED_COMMENT}           { return INLINED_COMMENT; }
   {SHELL_STRING}              { return SHELL_STRING; }
   {STRING_QUOTED_SINGLE}      { return STRING_QUOTED_SINGLE; }
   {STRING_QUOTED_DOUBLE}      { return STRING_QUOTED_DOUBLE; }

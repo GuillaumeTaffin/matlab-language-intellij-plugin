@@ -8,9 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface MatlabComment extends PsiElement {
 
   @Nullable
-  MatlabCommentBlock getCommentBlock();
+  PsiElement getCommentBlock();
 
   @Nullable
-  PsiElement getSingleLineComment();
+  PsiElement getInlinedComment();
 
 }

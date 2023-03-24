@@ -29,14 +29,14 @@ public class MatlabCommentImpl extends ASTWrapperPsiElement implements MatlabCom
 
   @Override
   @Nullable
-  public MatlabCommentBlock getCommentBlock() {
-    return findChildByClass(MatlabCommentBlock.class);
+  public PsiElement getCommentBlock() {
+    return findChildByType(COMMENT_BLOCK);
   }
 
   @Override
   @Nullable
-  public PsiElement getSingleLineComment() {
-    return findChildByType(SINGLE_LINE_COMMENT);
+  public PsiElement getInlinedComment() {
+    return findChildByType(INLINED_COMMENT);
   }
 
 }
