@@ -24,38 +24,17 @@ intellij {
 
 idea {
     module {
-        generatedSourceDirs.add(file("src/gen"))
+        generatedSourceDirs.add(file("src/main/gen"))
     }
 }
 
-val generatedSourcesRoot = "build/generated-sources"
-
 sourceSets {
     main {
-        java.srcDirs(generatedSourcesRoot)
+        java.srcDirs("src/main/gen")
     }
 }
 
 tasks {
-
-    compileKotlin {
-        dependsOn("generateParser", "generateLexer")
-    }
-
-    generateLexer {
-        sourceFile.set(file("src/main/grammars/Matlab.flex"))
-        targetDir.set("$generatedSourcesRoot/com/gt/intellij/matlab/language/lexer")
-        targetClass.set("MatlabLexer")
-        purgeOldFiles.set(true)
-    }
-
-    generateParser {
-        sourceFile.set(file("src/main/grammars/Matlab.bnf"))
-        targetRoot.set(generatedSourcesRoot)
-        pathToParser.set("com/gt/intellij/matlab/language/parser/MatlabParser.java")
-        pathToPsiRoot.set("com/gt/intellij/matlab/psi")
-        purgeOldFiles.set(true)
-    }
 
     // Set the JVM compatibility versions
     withType<JavaCompile> {

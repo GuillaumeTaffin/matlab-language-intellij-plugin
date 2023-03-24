@@ -15,11 +15,11 @@
   tokens = [
     NUMBER="regexp:[0-9]+(\.[0-9]+)?([eE][-+]?[0-9]+)?"
     SINGLE_LINE_COMMENT="regexp:%[^\r\n]*"
-    SHELL_STRING="regexp:\!.*"
-    STRING_QUOTED_SINGLE="regexp:'([^'\n]|'')*'"
-    STRING_QUOTED_DOUBLE='regexp:"([^"\n]|"")*"'
-    WHITE_SPACE="regexp:[\ \t\f]"
-    EOL="regexp:\R"
+    SHELL_STRING="regexp:!.*"
+    STRING_QUOTED_SINGLE="regexp:'([^'\r\n]|'')*'"
+    STRING_QUOTED_DOUBLE='regexp:"([^"\r\n]|"")*"'
+    WHITE_SPACE="regexp:[ \t\f]+"
+    EOL="regexp:[\r\n\f]+"
   ]
 }
 
@@ -29,13 +29,11 @@ private item_ ::= comment
                     | white_space
                     | standalone_expression
 
-private white_space ::= (line_space | EOL)+
-
-private line_space ::= WHITE_SPACE+
+private white_space ::= (WHITE_SPACE | EOL)+
 
 comment ::= SINGLE_LINE_COMMENT
 
-private standalone_expression ::= expression (line_space | SINGLE_LINE_COMMENT)? EOL+
+private standalone_expression ::= expression WHITE_SPACE? !expression SINGLE_LINE_COMMENT?
 
 private expression ::= string
 
